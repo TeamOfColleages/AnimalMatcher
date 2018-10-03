@@ -9,6 +9,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using AnimalMatcher.Data;
+    using AutoMapper;
 
     public class Startup
     {
@@ -36,6 +37,8 @@
                 .AddEntityFrameworkStores<AnimalMatcherDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
