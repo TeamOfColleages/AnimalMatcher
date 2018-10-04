@@ -1,7 +1,6 @@
 ﻿namespace AnimalMatcher.Web
 {
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -10,6 +9,11 @@
     using Microsoft.Extensions.DependencyInjection;
     using AnimalMatcher.Data;
     using AutoMapper;
+    using AnimalMatcher.Data.Repository.Interfaces;
+    using AnimalMatcher.Data.Repository;
+    using AnimalMatcher.Data.Models;
+    using AnimalMatcher.Services.Animal;
+    using AnimalMatcher.Services.Animal.Interfaces;
 
     public class Startup
     {
@@ -33,12 +37,18 @@
             services.AddDbContext<AnimalMatcherDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<Owner>()
                 .AddEntityFrameworkStores<AnimalMatcherDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            
             services.AddAutoMapper();
+
+            services.AddScoped<DbContext, AnimalMatcherDbContext>();
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddTransient<IAnimalService, AnimalService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

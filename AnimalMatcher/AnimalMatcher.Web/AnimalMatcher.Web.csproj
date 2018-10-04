@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnimalMatcher.Data\AnimalMatcher.Data.csproj" />
+    <ProjectReference Include="..\AnimalMatcher.Services\AnimalMatcher.Services.csproj" />
   </ItemGroup>
 
 </Project>
