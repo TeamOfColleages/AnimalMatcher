@@ -34,7 +34,7 @@
 
             var enumerableQueryResult = queryableResultWithIncludes
                             .Where(specification.FilterCriteria)
-                            .ToList();
+                            .AsEnumerable();
 
             return enumerableQueryResult;
         }
