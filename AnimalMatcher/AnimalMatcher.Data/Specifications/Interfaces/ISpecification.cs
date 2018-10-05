@@ -8,6 +8,8 @@
     {
         Expression<Func<T, bool>> FilterCriteria { get; }
 
-        IReadOnlyCollection<Expression<Func<T, object>>> Includes { get; }
+        IReadOnlyCollection<Expression<Func<T, object>>> ExpressionIncludes { get; }
+
+        IReadOnlyCollection<string> StringIncludes { get; }
     }
 }

@@ -3,12 +3,12 @@
     using AnimalMatcher.Data.Specifications.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq.Expressions;
 
     public class Specification<T> : ISpecification<T>
     {
-        private readonly List<Expression<Func<T, object>>> includes;
+        private readonly List<Expression<Func<T, object>>> expressionIncludes;
+        private readonly List<string> stringIncludes;
 
         public Specification()
             :this(null)
@@ -18,22 +18,37 @@
         {
 
             this.FilterCriteria = filterCriteria;
-            this.includes = new List<Expression<Func<T, object>>>();
+            this.expressionIncludes = new List<Expression<Func<T, object>>>();
+            this.stringIncludes = new List<string>();
         }
 
         public Expression<Func<T, bool>> FilterCriteria { get; }
 
-        public IReadOnlyCollection<Expression<Func<T, object>>> Includes
+        public IReadOnlyCollection<Expression<Func<T, object>>> ExpressionIncludes
         {
             get
             {
-                return this.includes.AsReadOnly();
+                return this.expressionIncludes.AsReadOnly();
             }
         }
 
-        public void AddInclude(Expression<Func<T, object>> includeExpression)
+        public IReadOnlyCollection<string> StringIncludes
         {
-            this.includes.Add(includeExpression);
+            get
+            {
+                return this.stringIncludes.AsReadOnly();
+            }
+        }
+
+        public void AddInclude(Expression<Func<T, object>> expressionInclude)
+        {
+            this.expressionIncludes.Add(expressionInclude);
+        }
+
+        //Added for child includes but does not have type safety
+        public void AddInclude(string stringInclude)
+        {
+            this.stringIncludes.Add(stringInclude);
         }
     }
 }

@@ -23,10 +23,16 @@
 
         public IEnumerable<T> List(ISpecification<T> specification)
         {
-            var queryableResultWithIncludes = specification.Includes
+            var queryableResultWithIncludes = specification
+                .ExpressionIncludes
                 .Aggregate(dbContext.Set<T>().AsQueryable(),
-                    (dbSetQueryable, includeExpression) => dbSetQueryable.Include(includeExpression));
-            
+                    (dbSetQueryable, expressionInclude) => dbSetQueryable.Include(expressionInclude));
+
+            queryableResultWithIncludes = specification
+                .StringIncludes
+                .Aggregate(queryableResultWithIncludes,
+                (queryableResult, stringInclude) => queryableResult.Include(stringInclude));
+
             if(specification.FilterCriteria == null)
             {
                 return queryableResultWithIncludes.AsEnumerable();
