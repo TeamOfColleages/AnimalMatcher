@@ -1,6 +1,6 @@
-﻿namespace AnimalMatcher.Services.Models.Animal
+﻿namespace AnimalMatcher.Services.Models.Pet
 {
-    public class AnimalServiceModel
+    public class PetServiceModel
     {
         public int Id { get; set; }
 

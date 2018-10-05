@@ -16,4 +16,8 @@
     <ProjectReference Include="..\AnimalMatcher.Services\AnimalMatcher.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+
 </Project>

@@ -31,9 +31,9 @@
             queryableResultWithIncludes = specification
                 .StringIncludes
                 .Aggregate(queryableResultWithIncludes,
-                (queryableResult, stringInclude) => queryableResult.Include(stringInclude));
+                    (queryableResult, stringInclude) => queryableResult.Include(stringInclude));
 
-            if(specification.FilterCriteria == null)
+            if (specification.FilterCriteria == null)
             {
                 return queryableResultWithIncludes.AsEnumerable();
             }

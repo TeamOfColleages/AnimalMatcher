@@ -1,15 +1,15 @@
 ﻿namespace AnimalMatcher.Web.Infrastructure.Mapping
 {
     using AnimalMatcher.Data.Models;
-    using AnimalMatcher.Services.Models.Animal;
+    using AnimalMatcher.Services.Models.Pet;
     using AutoMapper;
 
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-            this.CreateMap<Animal, AnimalServiceModel>()
-                .ForMember(animalServiceModel => animalServiceModel.OwnerName, cfg => cfg.MapFrom(animalDataModel => animalDataModel.Owner.Email));
+            this.CreateMap<Pet, PetServiceModel>()
+                .ForMember(petServiceModel => petServiceModel.OwnerName, cfg => cfg.MapFrom(petDataModel => petDataModel.Owner.UserName));
         }
     }
 }

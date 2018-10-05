@@ -5,6 +5,6 @@
 
     public class Owner : IdentityUser
     {
-        public ICollection<Animal> Pets { get; set; } = new List<Animal>();
+        public ICollection<Pet> Pets { get; set; } = new List<Pet>();
     }
 }

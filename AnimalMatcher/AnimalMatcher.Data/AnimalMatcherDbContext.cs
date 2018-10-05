@@ -11,15 +11,15 @@
         {
         }
 
-        public DbSet<Animal> Animals { get; set; }
+        public DbSet<Pet> Pets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
                 .Entity<Owner>()
                 .HasMany(owner => owner.Pets)
-                .WithOne(animal => animal.Owner)
-                .HasForeignKey(animal => animal.OwnerId);
+                .WithOne(pet => pet.Owner)
+                .HasForeignKey(pet => pet.OwnerId);
 
             base.OnModelCreating(builder);
         }
