@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181005170207_RenameAnimalsToPets.cs" />
+    <Compile Remove="Migrations\20181006112239_LikesTable.cs" />
+    <Compile Remove="Migrations\20181006113005_LikesTable.cs" />
+    <Compile Remove="Migrations\20181006113504_LikesTable.cs" />
+    <Compile Remove="Migrations\20181006113709_LikesTable.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
   </ItemGroup>

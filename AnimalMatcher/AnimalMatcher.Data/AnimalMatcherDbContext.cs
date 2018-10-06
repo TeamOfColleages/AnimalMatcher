@@ -13,6 +13,8 @@
 
         public DbSet<Pet> Pets { get; set; }
 
+        public DbSet<Like> Likes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -20,6 +22,20 @@
                 .HasMany(owner => owner.Pets)
                 .WithOne(pet => pet.Owner)
                 .HasForeignKey(pet => pet.OwnerId);
+
+            builder
+                .Entity<Pet>()
+                .HasMany(pet => pet.WhoYouLiked)
+                .WithOne(like => like.LikedByPet)
+                .HasForeignKey(like => like.LikedByPetId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Pet>()
+                .HasMany(pet => pet.WhoLikedYou)
+                .WithOne(like => like.LikedPet)
+                .HasForeignKey(like => like.LikedPetId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

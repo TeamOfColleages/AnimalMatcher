@@ -37,6 +37,7 @@
         public class InputModel
         {
             [Required]
+            [MaxLength(5)]
             public string Username { get; set; }
 
             [Required]

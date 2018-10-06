@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimalMatcher.Data.Migrations
 {
     [DbContext(typeof(AnimalMatcherDbContext))]
-    [Migration("20181005170207_RenameAnimalsToPets")]
-    partial class RenameAnimalsToPets
+    [Migration("20181006115355_LikesTable")]
+    partial class LikesTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,25 @@ namespace AnimalMatcher.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AnimalMatcher.Data.Models.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LikedByPetId");
+
+                    b.Property<int>("LikedPetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LikedByPetId");
+
+                    b.HasIndex("LikedPetId");
+
+                    b.ToTable("Likes");
+                });
 
             modelBuilder.Entity("AnimalMatcher.Data.Models.Pet", b =>
                 {
@@ -43,7 +62,7 @@ namespace AnimalMatcher.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Animals");
+                    b.ToTable("Pets");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -224,6 +243,19 @@ namespace AnimalMatcher.Data.Migrations
                     b.ToTable("Owner");
 
                     b.HasDiscriminator().HasValue("Owner");
+                });
+
+            modelBuilder.Entity("AnimalMatcher.Data.Models.Like", b =>
+                {
+                    b.HasOne("AnimalMatcher.Data.Models.Pet", "LikedByPet")
+                        .WithMany("WhoYouLiked")
+                        .HasForeignKey("LikedByPetId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AnimalMatcher.Data.Models.Pet", "LikedPet")
+                        .WithMany("WhoLikedYou")
+                        .HasForeignKey("LikedPetId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AnimalMatcher.Data.Models.Pet", b =>

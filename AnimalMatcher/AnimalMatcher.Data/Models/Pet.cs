@@ -1,5 +1,6 @@
 ﻿namespace AnimalMatcher.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Pet
@@ -21,5 +22,9 @@
         public string OwnerId { get; set; }
 
         public Owner Owner { get; set; }
+
+        public ICollection<Like> WhoYouLiked { get; set; } = new List<Like>();
+
+        public ICollection<Like> WhoLikedYou { get; set; } = new List<Like>();
     }
 }
