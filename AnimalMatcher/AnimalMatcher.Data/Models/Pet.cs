@@ -27,5 +27,9 @@
         public ICollection<Like> WhoYouLiked { get; set; } = new List<Like>();
 
         public ICollection<Like> WhoLikedYou { get; set; } = new List<Like>();
+
+        public ICollection<Message> SentMessages { get; set; } = new List<Message>();
+
+        public ICollection<Message> ReceivedMessages { get; set; } = new List<Message>();
     }
 }
