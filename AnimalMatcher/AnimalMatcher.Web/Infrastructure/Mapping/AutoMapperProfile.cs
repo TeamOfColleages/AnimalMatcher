@@ -9,7 +9,7 @@
         public AutoMapperProfile()
         {
             this.CreateMap<Pet, PetServiceModel>()
-                .ForMember(petServiceModel => petServiceModel.OwnerName, cfg => cfg.MapFrom(petDataModel => petDataModel.Owner.UserName));
+                .ForMember(petServiceModel => petServiceModel.OwnerUsername, cfg => cfg.MapFrom(petDataModel => petDataModel.Owner.UserName));
         }
     }
 }

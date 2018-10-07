@@ -12,6 +12,6 @@
         
         public string OwnerId { get; set; }
 
-        public string OwnerName { get; set; }
+        public string OwnerUsername { get; set; }
     }
 }

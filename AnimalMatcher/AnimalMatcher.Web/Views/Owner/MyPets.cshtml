@@ -1,7 +1,22 @@
-﻿
+﻿@model IEnumerable<PetShortViewModel>
 @{
-    ViewData["Title"] = "PetsByOwner";
+    ViewData["Title"] = "My Pets";
 }
 
 <h2>Pets By Owner</h2>
 
+<ul>
+    @foreach (var pet in Model)
+    {
+        <li>
+            <div>
+                <label asp-for="@pet.Name"></label>
+                <a asp-area="" asp-controller="Pet" asp-action="Details" asp-route-id="@pet.Id">@pet.Name</a>
+            </div>
+            <div>
+                <label asp-for="@pet.OwnerUsername"></label>
+                <span>@pet.OwnerUsername</span>
+            </div>
+        </li>
+    }
+</ul>
