@@ -30,6 +30,7 @@
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Register(PetInputModel pet)
         {
             if (!this.ModelState.IsValid)
@@ -45,6 +46,14 @@
             this.petService.Register(petToRegister);
 
             return this.RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        public IActionResult Details(int id)
+        {
+            var petServiceModel = this.petService.GetById(id);
+            var petViewModel = this.mapper.Map<PetDetailedViewModel>(petServiceModel);
+
+            return this.View(petViewModel);
         }
     }
 }

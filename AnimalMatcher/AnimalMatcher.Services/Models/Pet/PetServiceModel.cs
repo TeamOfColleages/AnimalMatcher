@@ -1,5 +1,6 @@
 ﻿namespace AnimalMatcher.Services.Models.Pet
 {
+    using System;
     using AnimalMatcher.Services.Models.Owner;
 
     public class PetServiceModel

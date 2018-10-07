@@ -28,6 +28,19 @@
             this.petRepository.Save();
         }
 
+        public PetServiceModel GetById(int petId)
+        {
+            var getWithOwnerByIdSpecification = new Specification<Pet>(pet => pet.Id == petId);
+            getWithOwnerByIdSpecification.AddInclude(pet => pet.Owner);
+
+            var petServiceModel = this.petRepository
+                .List(getWithOwnerByIdSpecification)
+                .Select(petDataModel => this.mapper.Map<PetServiceModel>(petDataModel))
+                .FirstOrDefault();
+
+            return petServiceModel;
+        }
+
         public IEnumerable<PetServiceModel> GetOwnersPets(string ownerId)
         {
             var getAnimalByOwnerSpecification = new Specification<Pet>(pet => pet.OwnerId.Equals(ownerId));

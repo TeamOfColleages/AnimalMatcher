@@ -16,8 +16,11 @@
 
         private void PetRegistrations()
         {
-            this.CreateMap<PetInputModel, PetRegisterServiceModel>();
             this.CreateMap<PetRegisterServiceModel, Pet>();
+
+            this.CreateMap<PetInputModel, PetRegisterServiceModel>();
+
+            this.CreateMap<PetServiceModel, PetDetailedViewModel>();
 
             this.CreateMap<Pet, PetServiceModel>();
         }
