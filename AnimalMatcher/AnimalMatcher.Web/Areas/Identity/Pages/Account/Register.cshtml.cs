@@ -44,8 +44,8 @@
             public string Username { get; set; }
 
             [Required]
-            [MinLength(OwnerConstants.MinNameLength)]
-            [MaxLength(OwnerConstants.MaxNameLength)]
+            [MinLength(OwnerConstants.NameMinLength)]
+            [MaxLength(OwnerConstants.NameMaxLength)]
             public string Name { get; set; }
 
             [Required]

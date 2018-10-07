@@ -5,6 +5,8 @@
 
     public interface IPetService
     {
+        void Register(PetRegisterServiceModel pet);
+
         IEnumerable<PetServiceModel> GetOwnersPets(string ownerId);
     }
 }

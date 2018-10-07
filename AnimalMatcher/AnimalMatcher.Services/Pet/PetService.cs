@@ -20,9 +20,12 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<PetServiceModel> GetOwnersAnimals(string ownerId)
+        public void Register(PetRegisterServiceModel pet)
         {
-            throw new System.NotImplementedException();
+            var petDataModel = this.mapper.Map<Pet>(pet);
+
+            this.petRepository.Add(petDataModel);
+            this.petRepository.Save();
         }
 
         public IEnumerable<PetServiceModel> GetOwnersPets(string ownerId)
