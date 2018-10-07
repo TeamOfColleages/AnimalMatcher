@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+    using AnimalMatcher.Common.Constants;
     using AnimalMatcher.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -43,6 +44,11 @@
             public string Username { get; set; }
 
             [Required]
+            [MinLength(OwnerConstants.MinNameLength)]
+            [MaxLength(OwnerConstants.MaxNameLength)]
+            public string Name { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -64,7 +70,7 @@
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Owner { UserName = Input.Username };
+                var user = new Owner { UserName = Input.Username, Name = Input.Name};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

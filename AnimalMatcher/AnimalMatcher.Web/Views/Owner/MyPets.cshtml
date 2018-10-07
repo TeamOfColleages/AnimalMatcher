@@ -14,8 +14,8 @@
                 <a asp-area="" asp-controller="Pet" asp-action="Details" asp-route-id="@pet.Id">@pet.Name</a>
             </div>
             <div>
-                <label asp-for="@pet.OwnerUsername"></label>
-                <span>@pet.OwnerUsername</span>
+                <label asp-for="@pet.OwnerName"></label>
+                <a asp-area="" asp-controller="Owner" asp-action="Details" asp-route-id="@pet.OwnerId">@pet.OwnerName</a>
             </div>
         </li>
     }

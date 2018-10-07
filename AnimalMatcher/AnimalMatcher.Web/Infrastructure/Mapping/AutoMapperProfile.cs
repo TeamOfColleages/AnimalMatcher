@@ -1,6 +1,7 @@
 ﻿namespace AnimalMatcher.Web.Infrastructure.Mapping
 {
     using AnimalMatcher.Data.Models;
+    using AnimalMatcher.Services.Models.Owner;
     using AnimalMatcher.Services.Models.Pet;
     using AutoMapper;
 
@@ -8,8 +9,10 @@
     {
         public AutoMapperProfile()
         {
-            this.CreateMap<Pet, PetServiceModel>()
-                .ForMember(petServiceModel => petServiceModel.OwnerUsername, cfg => cfg.MapFrom(petDataModel => petDataModel.Owner.UserName));
+            this.CreateMap<Pet, PetServiceModel>();
+
+            this.CreateMap<Owner, OwnerServiceModel>()
+                .ForMember(ownerServiceModel => ownerServiceModel.Username, cfg => cfg.MapFrom(ownerDataModel => ownerDataModel.UserName));
         }
     }
 }

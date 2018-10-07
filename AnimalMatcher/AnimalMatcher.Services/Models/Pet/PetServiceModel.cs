@@ -1,5 +1,7 @@
 ﻿namespace AnimalMatcher.Services.Models.Pet
 {
+    using AnimalMatcher.Services.Models.Owner;
+
     public class PetServiceModel
     {
         public int Id { get; set; }
@@ -10,8 +12,6 @@
         
         public string Description { get; set; }
         
-        public string OwnerId { get; set; }
-
-        public string OwnerUsername { get; set; }
+        public OwnerServiceModel Owner { get; set; }
     }
 }

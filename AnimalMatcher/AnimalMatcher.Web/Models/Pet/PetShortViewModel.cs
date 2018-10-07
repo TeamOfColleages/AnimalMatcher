@@ -8,7 +8,9 @@
 
         public string Name { get; set; }
 
-        [Display(Name = "Owner username")]
-        public string OwnerUsername { get; set; } 
+        public string OwnerId { get; set; }
+
+        [Display(Name = "Owner")]
+        public string OwnerName { get; set; } 
     }
 }
