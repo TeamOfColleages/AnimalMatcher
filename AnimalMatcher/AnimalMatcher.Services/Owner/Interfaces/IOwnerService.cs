@@ -1,7 +1,6 @@
-﻿using AnimalMatcher.Services.Models.Owner;
-
-namespace AnimalMatcher.Services.Owner.Interfaces
+﻿namespace AnimalMatcher.Services.Owner.Interfaces
 {
+    using AnimalMatcher.Services.Models.Owner;
 
     public interface IOwnerService
     {

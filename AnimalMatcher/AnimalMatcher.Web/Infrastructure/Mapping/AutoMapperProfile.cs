@@ -23,11 +23,9 @@
 
             this.CreateMap<PetWithOwnerServiceModel, PetDetailedViewModel>();
 
-            this.CreateMap<Pet, PetServiceModel>();
-
             this.CreateMap<Pet, PetWithOwnerServiceModel>();
 
-            this.CreateMap<PetServiceModel, Pet>();
+            this.CreateMap<Pet, PetServiceModel>();
         }
 
         private void OwnerRegistrations()

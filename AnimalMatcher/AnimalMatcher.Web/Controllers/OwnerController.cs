@@ -41,6 +41,7 @@
         {
             var ownerWithPets = ownerService.GetOwnerWithPetsById(id);
             var ownerWithPetsViewModel = this.mapper.Map<OwnerViewModel>(ownerWithPets);
+
             return this.View(ownerWithPetsViewModel);
         }
     }

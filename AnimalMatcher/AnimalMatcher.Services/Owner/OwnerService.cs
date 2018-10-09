@@ -26,10 +26,10 @@
 
             var ownerWithPets = ownerRepository
                 .List(getOwnerWithPetsSpecification)
-            //    .Select(ownerDataModel => this.autoMapper.Map<OwnerWithPetsServiceModel>(ownerDataModel))
+                .Select(ownerDataModel => this.autoMapper.Map<OwnerWithPetsServiceModel>(ownerDataModel))
                 .FirstOrDefault();
 
-            return null;
+            return ownerWithPets;
         }
     }
 }

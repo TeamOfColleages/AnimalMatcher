@@ -6,6 +6,6 @@ namespace AnimalMatcher.Services.Models.Owner
 
     public class OwnerWithPetsServiceModel : OwnerServiceModel
     {
-        ICollection<PetWithOwnerServiceModel> Pets { get; set; }
+        public ICollection<PetWithOwnerServiceModel> Pets { get; set; }
     }
 }
