@@ -33,7 +33,7 @@
     </div>
     <div>
         <label asp-for="OwnerUsername"></label>
-        <span>@Model.OwnerUsername</span>
+        <a asp-area="" asp-controller="Owner" asp-action="Details" asp-route-id="@Model.OwnerId">@Model.OwnerUsername</a>
     </div>
     @if (!Model.OwnerId.Equals(UserManager.GetUserId(User)))
     {
