@@ -14,16 +14,16 @@
     public class OwnerController : Controller
     {
         private readonly IPetService petService;
+        private readonly IOwnerService ownerService;
         private readonly UserManager<Owner> userManager;
         private readonly IMapper mapper;
-        private readonly IOwnerService ownerService;
-
-        public OwnerController(IPetService petService, UserManager<Owner> userManager, IMapper mapper, IOwnerService ownerService)
+        
+        public OwnerController(IPetService petService, IOwnerService ownerService, UserManager<Owner> userManager, IMapper mapper)
         {
             this.petService = petService;
+            this.ownerService = ownerService;
             this.userManager = userManager;
             this.mapper = mapper;
-            this.ownerService = ownerService;
         }
 
         [Authorize]
@@ -36,7 +36,7 @@
 
             return this.View(petsByOwner);
         }
-
+        
         public IActionResult Details(string id)
         {
             var ownerWithPets = ownerService.GetOwnerWithPetsById(id);

@@ -3,11 +3,12 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details about @Model.Name</h2>
 
 <div>
-    <label asp-for="@Model.Name"></label>
-    <span>@Model.Name</span>
+    <label asp-for="@Model.Username"></label>
+    <span>@Model.Username</span>
 </div>
 
-
+<span>@Model.Name`s pets</span>
+@await Html.PartialAsync("_PetsShortViewPartial", Model.Pets);
