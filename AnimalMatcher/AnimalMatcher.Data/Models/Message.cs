@@ -16,12 +16,9 @@
         public int SenderId { get; set; }
 
         public Pet Sender { get; set; }
-
-        [MaxLength(MessageConstants.SubjectMaxLength)]
-        public string MessageSubject { get; set; }
         
         [MaxLength(MessageConstants.BodyMaxLength)]
-        public string MessageBody { get; set; }
+        public string Body { get; set; }
 
     }
 }

@@ -2,7 +2,6 @@
 {
     public static class MessageConstants
     {
-        public const int SubjectMaxLength = 100;
         public const int BodyMaxLength = 3000;
     }
 }

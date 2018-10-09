@@ -15,8 +15,7 @@ namespace AnimalMatcher.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RecipientId = table.Column<int>(nullable: false),
                     SenderId = table.Column<int>(nullable: false),
-                    MessageSubject = table.Column<string>(maxLength: 100, nullable: true),
-                    MessageBody = table.Column<string>(maxLength: 3000, nullable: true)
+                    Body = table.Column<string>(maxLength: 3000, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -44,11 +44,8 @@ namespace AnimalMatcher.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MessageBody")
+                    b.Property<string>("Body")
                         .HasMaxLength(3000);
-
-                    b.Property<string>("MessageSubject")
-                        .HasMaxLength(100);
 
                     b.Property<int>("RecipientId");
 
@@ -286,13 +283,13 @@ namespace AnimalMatcher.Data.Migrations
 
             modelBuilder.Entity("AnimalMatcher.Data.Models.Message", b =>
                 {
-                    b.HasOne("AnimalMatcher.Data.Models.Pet", "Sender")
-                        .WithMany("SentMessages")
+                    b.HasOne("AnimalMatcher.Data.Models.Pet", "Recipient")
+                        .WithMany("ReceivedMessages")
                         .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("AnimalMatcher.Data.Models.Pet", "Recipient")
-                        .WithMany("ReceivedMessages")
+                    b.HasOne("AnimalMatcher.Data.Models.Pet", "Sender")
+                        .WithMany("SentMessages")
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

@@ -43,14 +43,14 @@
                 .Entity<Pet>()
                 .HasMany(pet => pet.SentMessages)
                 .WithOne(message => message.Sender)
-                .HasForeignKey(message => message.RecipientId)
+                .HasForeignKey(message => message.SenderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Pet>()
                 .HasMany(pet => pet.ReceivedMessages)
                 .WithOne(message => message.Recipient)
-                .HasForeignKey(message => message.SenderId)
+                .HasForeignKey(message => message.RecipientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
