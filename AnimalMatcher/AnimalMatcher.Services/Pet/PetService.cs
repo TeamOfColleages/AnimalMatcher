@@ -28,27 +28,27 @@
             this.petRepository.Save();
         }
 
-        public PetServiceModel GetById(int petId)
+        public PetWithOwnerServiceModel GetById(int petId)
         {
             var getWithOwnerByIdSpecification = new Specification<Pet>(pet => pet.Id == petId);
             getWithOwnerByIdSpecification.AddInclude(pet => pet.Owner);
 
-            var petServiceModel = this.petRepository
+            var petWithOwnerServiceModel = this.petRepository
                 .List(getWithOwnerByIdSpecification)
-                .Select(petDataModel => this.mapper.Map<PetServiceModel>(petDataModel))
+                .Select(petDataModel => this.mapper.Map<PetWithOwnerServiceModel>(petDataModel))
                 .FirstOrDefault();
 
-            return petServiceModel;
+            return petWithOwnerServiceModel;
         }
 
-        public IEnumerable<PetServiceModel> GetOwnersPets(string ownerId)
+        public IEnumerable<PetWithOwnerServiceModel> GetOwnersPets(string ownerId)
         {
             var getAnimalByOwnerSpecification = new Specification<Pet>(pet => pet.OwnerId.Equals(ownerId));
             getAnimalByOwnerSpecification.AddInclude(pet => pet.Owner);
 
             var petsForOwner = this.petRepository
                 .List(getAnimalByOwnerSpecification)
-                .Select(petDataModel => this.mapper.Map<PetServiceModel>(petDataModel))
+                .Select(petDataModel => this.mapper.Map<PetWithOwnerServiceModel>(petDataModel))
                 .ToList();
 
             return petsForOwner;

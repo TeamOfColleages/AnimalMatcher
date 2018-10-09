@@ -3,6 +3,7 @@
     using AnimalMatcher.Data.Models;
     using AnimalMatcher.Services.Models.Owner;
     using AnimalMatcher.Services.Models.Pet;
+    using AnimalMatcher.Web.Models.Owner;
     using AnimalMatcher.Web.Models.Pet;
     using AutoMapper;
 
@@ -20,15 +21,23 @@
 
             this.CreateMap<PetInputModel, PetRegisterServiceModel>();
 
-            this.CreateMap<PetServiceModel, PetDetailedViewModel>();
+            this.CreateMap<PetWithOwnerServiceModel, PetDetailedViewModel>();
 
             this.CreateMap<Pet, PetServiceModel>();
+
+            this.CreateMap<Pet, PetWithOwnerServiceModel>();
+
+            this.CreateMap<PetServiceModel, Pet>();
         }
 
         private void OwnerRegistrations()
         {
             this.CreateMap<Owner, OwnerServiceModel>()
                 .ForMember(ownerServiceModel => ownerServiceModel.Username, cfg => cfg.MapFrom(ownerDataModel => ownerDataModel.UserName));
+
+            this.CreateMap<Owner, OwnerWithPetsServiceModel>();
+
+            this.CreateMap<OwnerWithPetsServiceModel, OwnerViewModel>();
         }
     }
 }

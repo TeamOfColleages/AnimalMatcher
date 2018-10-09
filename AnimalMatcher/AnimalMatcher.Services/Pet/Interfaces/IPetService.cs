@@ -7,8 +7,8 @@
     {
         void Register(PetRegisterServiceModel pet);
 
-        PetServiceModel GetById(int petId);
+        PetWithOwnerServiceModel GetById(int petId);
 
-        IEnumerable<PetServiceModel> GetOwnersPets(string ownerId);
+        IEnumerable<PetWithOwnerServiceModel> GetOwnersPets(string ownerId);
     }
 }
