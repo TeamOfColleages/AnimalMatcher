@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20181006113005_LikesTable.cs" />
     <Compile Remove="Migrations\20181006113504_LikesTable.cs" />
     <Compile Remove="Migrations\20181006113709_LikesTable.cs" />
+    <Compile Remove="Migrations\20181010170913_PetLocationTable.cs" />
+    <Compile Remove="Migrations\20181010172227_PetLocationTable.cs" />
   </ItemGroup>
 
   <ItemGroup>

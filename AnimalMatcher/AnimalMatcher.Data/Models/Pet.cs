@@ -24,6 +24,10 @@
 
         public Owner Owner { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
+
         public ICollection<Like> WhoYouLiked { get; set; } = new List<Like>();
 
         public ICollection<Like> WhoLikedYou { get; set; } = new List<Like>();

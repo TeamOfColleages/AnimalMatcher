@@ -16,6 +16,8 @@
     using AnimalMatcher.Services.Pet;
     using AnimalMatcher.Services.Owner;
     using AnimalMatcher.Services.Owner.Interfaces;
+    using AnimalMatcher.Services.Location;
+    using AnimalMatcher.Services.Location.Interfaces;
 
     public class Startup
     {
@@ -51,8 +53,8 @@
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddTransient<IPetService, PetService>();
-
             services.AddTransient<IOwnerService, OwnerService>();
+            services.AddTransient<ILocationService, LocationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
