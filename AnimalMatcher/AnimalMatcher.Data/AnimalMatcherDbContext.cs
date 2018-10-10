@@ -15,6 +15,8 @@
 
         public DbSet<Like> Likes { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -35,6 +37,20 @@
                 .HasMany(pet => pet.WhoLikedYou)
                 .WithOne(like => like.LikedPet)
                 .HasForeignKey(like => like.LikedPetId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Pet>()
+                .HasMany(pet => pet.SentMessages)
+                .WithOne(message => message.Sender)
+                .HasForeignKey(message => message.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Pet>()
+                .HasMany(pet => pet.ReceivedMessages)
+                .WithOne(message => message.Recipient)
+                .HasForeignKey(message => message.RecipientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
