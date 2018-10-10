@@ -1,0 +1,22 @@
+﻿@Model  MessageViewModel
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<h2>Messages</h2>
+
+<ul>
+    @foreach (var message in Model)
+    {
+        <li>
+            <div>
+                <label asp-for="Sender"></label>
+                <span>@Model.Sender</span>
+            </div>
+            <div>
+                <label asp-for="Body"></label>
+                <span>@Model.Body</span>
+            </div>
+        </li>
+    }
+</ul>

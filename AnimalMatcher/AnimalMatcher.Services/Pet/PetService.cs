@@ -53,5 +53,10 @@
 
             return petsForOwner;
         }
+
+        public PetWithMessagesServiceModel GetPetWithMessagesServiceModelById(int PetId)
+        {
+            return mapper.Map<PetWithMessagesServiceModel>(petRepository.GetById(PetId));
+        }
     }
 }

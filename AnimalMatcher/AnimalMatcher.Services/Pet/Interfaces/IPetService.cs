@@ -10,5 +10,7 @@
         PetWithOwnerServiceModel GetById(int petId);
 
         IEnumerable<PetWithOwnerServiceModel> GetOwnersPets(string ownerId);
+
+        PetWithMessagesServiceModel GetPetWithMessagesServiceModelById(int PetId);
     }
 }
