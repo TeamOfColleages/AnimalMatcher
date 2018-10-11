@@ -1,7 +1,7 @@
 ﻿namespace AnimalMatcher.Web.Models.Pet
 {
-    using AnimalMatcher.Common.Constants;
     using System.ComponentModel.DataAnnotations;
+    using AnimalMatcher.Common.Constants;
 
     public class PetInputModel
     {

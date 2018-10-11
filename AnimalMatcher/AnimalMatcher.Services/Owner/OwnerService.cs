@@ -1,12 +1,13 @@
 ﻿namespace AnimalMatcher.Services.Owner
 {
+    using System.Linq;
+
     using AnimalMatcher.Data.Models;
     using AnimalMatcher.Data.Repository.Interfaces;
     using AnimalMatcher.Services.Models.Owner;
     using AnimalMatcher.Services.Owner.Interfaces;
     using AnimalMatcher.Specifications;
     using AutoMapper;
-    using System.Linq;
 
     public class OwnerService : IOwnerService
     {
@@ -24,7 +25,7 @@
             var getOwnerWithPetsSpecification = new Specification<Owner>(owner => owner.Id.Equals(id));
             getOwnerWithPetsSpecification.AddInclude(owner => owner.Pets);
 
-            var ownerWithPets = ownerRepository
+            var ownerWithPets = this.ownerRepository
                 .List(getOwnerWithPetsSpecification)
                 .Select(ownerDataModel => this.autoMapper.Map<OwnerWithPetsServiceModel>(ownerDataModel))
                 .FirstOrDefault();

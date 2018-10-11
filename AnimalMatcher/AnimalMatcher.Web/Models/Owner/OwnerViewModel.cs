@@ -1,8 +1,7 @@
 ﻿namespace AnimalMatcher.Web.Models.Owner
 {
-    using AnimalMatcher.Web.Models.Pet;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    using AnimalMatcher.Web.Models.Pet;
 
     public class OwnerViewModel
     {

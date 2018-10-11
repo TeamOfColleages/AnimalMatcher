@@ -1,8 +1,7 @@
-﻿
-namespace AnimalMatcher.Services.Models.Owner
+﻿namespace AnimalMatcher.Services.Models.Owner
 {
-    using AnimalMatcher.Services.Models.Pet;
     using System.Collections.Generic;
+    using AnimalMatcher.Services.Models.Pet;
 
     public class OwnerWithPetsServiceModel : OwnerServiceModel
     {

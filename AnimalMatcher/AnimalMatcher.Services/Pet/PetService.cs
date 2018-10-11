@@ -1,13 +1,15 @@
 ﻿namespace AnimalMatcher.Services.Pet
 {
-    using AnimalMatcher.Data.Repository.Interfaces;
-    using AnimalMatcher.Data.Models;
     using System.Collections.Generic;
-    using AnimalMatcher.Specifications;
-    using AutoMapper;
     using System.Linq;
-    using AnimalMatcher.Services.Pet.Interfaces;
+
+    using AnimalMatcher.Data.Models;
+    using AnimalMatcher.Data.Repository.Interfaces;
     using AnimalMatcher.Services.Models.Pet;
+    using AnimalMatcher.Services.Pet.Interfaces;
+    using AnimalMatcher.Specifications;
+
+    using AutoMapper;
 
     public class PetService : IPetService
     {

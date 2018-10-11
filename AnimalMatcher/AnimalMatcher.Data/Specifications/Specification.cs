@@ -1,9 +1,10 @@
 ﻿namespace AnimalMatcher.Specifications
 {
-    using AnimalMatcher.Data.Specifications.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+
+    using AnimalMatcher.Data.Specifications.Interfaces;
 
     public class Specification<T> : ISpecification<T>
     {
@@ -11,12 +12,12 @@
         private readonly List<string> stringIncludes;
 
         public Specification()
-            :this(null)
-        { }
+            : this(null)
+        {
+        }
 
         public Specification(Expression<Func<T, bool>> filterCriteria)
         {
-
             this.FilterCriteria = filterCriteria;
             this.expressionIncludes = new List<Expression<Func<T, object>>>();
             this.stringIncludes = new List<string>();
@@ -45,7 +46,7 @@
             this.expressionIncludes.Add(expressionInclude);
         }
 
-        //Added for child includes but does not have type safety
+        // Added for child includes but does not have type safety
         public void AddInclude(string stringInclude)
         {
             this.stringIncludes.Add(stringInclude);

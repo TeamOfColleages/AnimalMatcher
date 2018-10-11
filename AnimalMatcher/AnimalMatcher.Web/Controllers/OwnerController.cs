@@ -1,15 +1,17 @@
 ﻿namespace AnimalMatcher.Web.Controllers
 {
+    using System.Linq;
+
     using AnimalMatcher.Data.Models;
     using AnimalMatcher.Services.Owner.Interfaces;
     using AnimalMatcher.Services.Pet.Interfaces;
     using AnimalMatcher.Web.Models.Owner;
     using AnimalMatcher.Web.Models.Pet;
+
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     public class OwnerController : Controller
     {
@@ -39,7 +41,7 @@
         
         public IActionResult Details(string id)
         {
-            var ownerWithPets = ownerService.GetOwnerWithPetsById(id);
+            var ownerWithPets = this.ownerService.GetOwnerWithPetsById(id);
             var ownerWithPetsViewModel = this.mapper.Map<OwnerViewModel>(ownerWithPets);
 
             return this.View(ownerWithPetsViewModel);

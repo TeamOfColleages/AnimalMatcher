@@ -1,5 +1,18 @@
 ﻿namespace AnimalMatcher.Web
 {
+    using AnimalMatcher.Data;
+    using AnimalMatcher.Data.Models;
+    using AnimalMatcher.Data.Repository;
+    using AnimalMatcher.Data.Repository.Interfaces;
+    using AnimalMatcher.Services.Location;
+    using AnimalMatcher.Services.Location.Interfaces;
+    using AnimalMatcher.Services.Owner;
+    using AnimalMatcher.Services.Owner.Interfaces;
+    using AnimalMatcher.Services.Pet;
+    using AnimalMatcher.Services.Pet.Interfaces;
+
+    using AutoMapper;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -7,23 +20,12 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using AnimalMatcher.Data;
-    using AutoMapper;
-    using AnimalMatcher.Data.Repository.Interfaces;
-    using AnimalMatcher.Data.Repository;
-    using AnimalMatcher.Data.Models;
-    using AnimalMatcher.Services.Pet.Interfaces;
-    using AnimalMatcher.Services.Pet;
-    using AnimalMatcher.Services.Owner;
-    using AnimalMatcher.Services.Owner.Interfaces;
-    using AnimalMatcher.Services.Location;
-    using AnimalMatcher.Services.Location.Interfaces;
-
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -40,7 +42,7 @@
 
             services.AddDbContext<AnimalMatcherDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    this.Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<Owner>()
                 .AddEntityFrameworkStores<AnimalMatcherDbContext>();
 
@@ -53,6 +55,7 @@
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddTransient<IPetService, PetService>();
+
             services.AddTransient<IOwnerService, OwnerService>();
             services.AddTransient<ILocationService, LocationService>();
         }
