@@ -24,9 +24,9 @@
 
         public Owner Owner { get; set; }
 
-        public double Latitude { get; set; }
+        public int? LocationId { get; set; }
 
-        public double Longitude { get; set; }
+        public Location Location { get; set; }
 
         public ICollection<Like> WhoYouLiked { get; set; } = new List<Like>();
 

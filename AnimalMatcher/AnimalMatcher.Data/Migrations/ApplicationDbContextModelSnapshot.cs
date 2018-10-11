@@ -38,6 +38,26 @@ namespace AnimalMatcher.Data.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("AnimalMatcher.Data.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Latitude");
+
+                    b.Property<double>("Longitude");
+
+                    b.Property<int>("PetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PetId")
+                        .IsUnique();
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("AnimalMatcher.Data.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -71,9 +91,7 @@ namespace AnimalMatcher.Data.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(600);
 
-                    b.Property<double>("Latitude");
-
-                    b.Property<double>("Longitude");
+                    b.Property<int?>("LocationId");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -283,6 +301,14 @@ namespace AnimalMatcher.Data.Migrations
                         .WithMany("WhoLikedYou")
                         .HasForeignKey("LikedPetId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("AnimalMatcher.Data.Models.Location", b =>
+                {
+                    b.HasOne("AnimalMatcher.Data.Models.Pet", "Pet")
+                        .WithOne("Location")
+                        .HasForeignKey("AnimalMatcher.Data.Models.Location", "PetId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AnimalMatcher.Data.Models.Message", b =>

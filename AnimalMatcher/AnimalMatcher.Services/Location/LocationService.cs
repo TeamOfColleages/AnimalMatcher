@@ -9,6 +9,7 @@
     using AnimalMatcher.Services.Location.Interfaces;
     using AnimalMatcher.Services.Models.Pet;
     using AnimalMatcher.Specifications;
+    using AutoMapper;
 
     public class LocationService : ILocationService
     {
@@ -16,10 +17,12 @@
         private const double RadiansPerDegree = 0.0174532925;
 
         private readonly IGenericRepository<Pet> petRepository;
+        private readonly IMapper mapper;
 
-        public LocationService(IGenericRepository<Pet> petRepository)
+        public LocationService(IGenericRepository<Pet> petRepository, IMapper mapper)
         {
             this.petRepository = petRepository;
+            this.mapper = mapper;
         }
 
         public IEnumerable<PetServiceModel> GetPetsInRadius(double latitude, double longitude, double radius)
@@ -27,13 +30,17 @@
             double latitudeInRadians = latitude * RadiansPerDegree;
             double longitudeInRadians = longitude * RadiansPerDegree;
 
-            var petsInRadiusSpecification = new Specification<Pet>(pet => Math.Acos(Math.Sin(latitudeInRadians) * Math.Sin(pet.Latitude * RadiansPerDegree)
-            + Math.Cos(latitudeInRadians) * Math.Cos(pet.Latitude * RadiansPerDegree) * Math.Cos(pet.Longitude * RadiansPerDegree - longitudeInRadians))
+            var petsInRadiusSpecification = new Specification<Pet>(pet => Math.Acos(Math.Sin(latitudeInRadians) * Math.Sin(pet.Location.Latitude * RadiansPerDegree)
+            + Math.Cos(latitudeInRadians) * Math.Cos(pet.Location.Latitude * RadiansPerDegree) * Math.Cos(pet.Location.Longitude * RadiansPerDegree - longitudeInRadians))
             * EarthRadiusInKm <= radius);
+            petsInRadiusSpecification.AddInclude(pet => pet.Location);
 
-            var petsInRadius = this.petRepository.List(petsInRadiusSpecification).ToList();
+            var petsInRadius = this.petRepository
+                .List(petsInRadiusSpecification)
+                .Select(petDataModel => this.mapper.Map<PetServiceModel>(petDataModel))
+                .ToList();
 
-            return null;
+            return petsInRadius;
         }
     }
 }

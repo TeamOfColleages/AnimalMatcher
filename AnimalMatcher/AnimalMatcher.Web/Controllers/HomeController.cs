@@ -18,9 +18,9 @@
         {
             double latitude = 42.67841870;
             double longitude = 23.29487976;
-            double radius = 5;
+            double radius = 0.5;
 
-            this.locationService.GetPetsInRadius(latitude, longitude, radius);
+            var petsInRadius = this.locationService.GetPetsInRadius(latitude, longitude, radius);
             
             return this.View();
         }
