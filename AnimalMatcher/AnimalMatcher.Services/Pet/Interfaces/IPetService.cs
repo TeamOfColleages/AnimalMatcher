@@ -1,7 +1,7 @@
 ﻿namespace AnimalMatcher.Services.Pet.Interfaces
 {
-    using AnimalMatcher.Services.Models.Pet;
     using System.Collections.Generic;
+    using AnimalMatcher.Services.Models.Pet;
 
     public interface IPetService
     {

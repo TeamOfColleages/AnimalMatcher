@@ -1,11 +1,11 @@
 ﻿namespace AnimalMatcher.Data.Repository
 {
-    using AnimalMatcher.Data.Repository.Interfaces;
-    using AnimalMatcher.Data.Specifications.Interfaces;
-    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using AnimalMatcher.Data.Repository.Interfaces;
+    using AnimalMatcher.Data.Specifications.Interfaces;
+    using Microsoft.EntityFrameworkCore;
 
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -14,7 +14,6 @@
         public GenericRepository(DbContext dbContext)
         {
             this.dbContext = dbContext ?? throw new ArgumentException("An instance of DbContext is required to use this repository.", nameof(dbContext));
-
         }
 
         public void Add(T entity) => this.dbContext.Set<T>().Add(entity);
@@ -25,12 +24,14 @@
         {
             var queryableResultWithIncludes = specification
                 .ExpressionIncludes
-                .Aggregate(dbContext.Set<T>().AsQueryable(),
+                .Aggregate(
+                    this.dbContext.Set<T>().AsQueryable(),
                     (dbSetQueryable, expressionInclude) => dbSetQueryable.Include(expressionInclude));
 
             queryableResultWithIncludes = specification
                 .StringIncludes
-                .Aggregate(queryableResultWithIncludes,
+                .Aggregate(
+                    queryableResultWithIncludes,
                     (queryableResult, stringInclude) => queryableResult.Include(stringInclude));
 
             if (specification.FilterCriteria == null)

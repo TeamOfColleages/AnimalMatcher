@@ -1,9 +1,9 @@
 ﻿namespace AnimalMatcher.Data.Models
 {
-    using AnimalMatcher.Common.Constants;
-    using Microsoft.AspNetCore.Identity;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using AnimalMatcher.Common.Constants;
+    using Microsoft.AspNetCore.Identity;
 
     public class Owner : IdentityUser
     {

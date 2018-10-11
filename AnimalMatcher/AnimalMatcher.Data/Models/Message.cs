@@ -1,7 +1,7 @@
 ﻿namespace AnimalMatcher.Data.Models
 {
-    using AnimalMatcher.Common.Constants;
     using System.ComponentModel.DataAnnotations;
+    using AnimalMatcher.Common.Constants;
 
     public class Message
     {
@@ -19,6 +19,5 @@
         
         [MaxLength(MessageConstants.BodyMaxLength)]
         public string Body { get; set; }
-
     }
 }

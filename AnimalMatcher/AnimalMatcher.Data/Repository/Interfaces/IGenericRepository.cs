@@ -1,7 +1,7 @@
 ﻿namespace AnimalMatcher.Data.Repository.Interfaces
 {
-    using AnimalMatcher.Data.Specifications.Interfaces;
     using System.Collections.Generic;
+    using AnimalMatcher.Data.Specifications.Interfaces;
 
     public interface IGenericRepository<T>
     {

@@ -1,8 +1,8 @@
 ﻿namespace AnimalMatcher.Data.Models
 {
-    using AnimalMatcher.Common.Constants;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using AnimalMatcher.Common.Constants;
 
     public class Pet
     {
