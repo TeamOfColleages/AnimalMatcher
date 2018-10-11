@@ -11,6 +11,9 @@
 
     public class LocationService : ILocationService
     {
+        private const int EarthRadiusInKm = 6371;
+        private const double RadiansPerDegree = 0.0174532925;
+
         private readonly IGenericRepository<Pet> petRepository;
 
         public LocationService(IGenericRepository<Pet> petRepository)
@@ -20,14 +23,12 @@
 
         public IEnumerable<PetServiceModel> GetPetsInRadius(double latitude, double longitude, double radius)
         {
-            const int earthRaduis = 6371;
-            const double radiansInDegree = 0.0174532925;
-            double latitudeInRadians = latitude * radiansInDegree;
-            double longitudeInRadians = longitude * radiansInDegree;
+            double latitudeInRadians = latitude * RadiansPerDegree;
+            double longitudeInRadians = longitude * RadiansPerDegree;
 
-            var petsInRadiusSpecification = new Specification<Pet>(pet => Math.Acos(Math.Sin(latitudeInRadians) * Math.Sin(pet.Latitude * radiansInDegree)
-            + Math.Cos(latitudeInRadians) * Math.Cos(pet.Latitude * radiansInDegree) * Math.Cos(pet.Longitude * radiansInDegree - longitudeInRadians))
-            * earthRaduis <= radius);
+            var petsInRadiusSpecification = new Specification<Pet>(pet => Math.Acos(Math.Sin(latitudeInRadians) * Math.Sin(pet.Latitude * RadiansPerDegree)
+            + Math.Cos(latitudeInRadians) * Math.Cos(pet.Latitude * RadiansPerDegree) * Math.Cos(pet.Longitude * RadiansPerDegree - longitudeInRadians))
+            * EarthRadiusInKm <= radius);
 
             var petsInRadius = this.petRepository.List(petsInRadiusSpecification).ToList();
 
