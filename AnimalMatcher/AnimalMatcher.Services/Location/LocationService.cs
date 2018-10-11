@@ -1,13 +1,14 @@
 ﻿namespace AnimalMatcher.Services.Location
 {
-    using AnimalMatcher.Data.Repository.Interfaces;
-    using AnimalMatcher.Data.Models;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using AnimalMatcher.Data.Models;
+    using AnimalMatcher.Data.Repository.Interfaces;
+    using AnimalMatcher.Services.Location.Interfaces;
     using AnimalMatcher.Services.Models.Pet;
     using AnimalMatcher.Specifications;
-    using System;
-    using AnimalMatcher.Services.Location.Interfaces;
-    using System.Linq;
 
     public class LocationService : ILocationService
     {

@@ -1,9 +1,9 @@
 ﻿namespace AnimalMatcher.Web.Controllers
 {
     using System.Diagnostics;
+    using AnimalMatcher.Services.Location.Interfaces;
     using AnimalMatcher.Web.Models;
     using Microsoft.AspNetCore.Mvc;
-    using AnimalMatcher.Services.Location.Interfaces;
 
     public class HomeController : Controller
     {
