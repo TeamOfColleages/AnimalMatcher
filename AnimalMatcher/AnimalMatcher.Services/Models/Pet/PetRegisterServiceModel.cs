@@ -1,7 +1,7 @@
-﻿using AnimalMatcher.Services.Models.Location;
-
-namespace AnimalMatcher.Services.Models.Pet
+﻿namespace AnimalMatcher.Services.Models.Pet
 {
+    using AnimalMatcher.Services.Models.Location;
+
     public class PetRegisterServiceModel
     {
         public int Age { get; set; }
