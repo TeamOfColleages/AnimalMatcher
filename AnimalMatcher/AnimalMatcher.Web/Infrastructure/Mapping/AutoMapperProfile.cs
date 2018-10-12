@@ -1,6 +1,7 @@
 ﻿namespace AnimalMatcher.Web.Infrastructure.Mapping
 {
     using AnimalMatcher.Data.Models;
+    using AnimalMatcher.Services.Models.Location;
     using AnimalMatcher.Services.Models.Owner;
     using AnimalMatcher.Services.Models.Pet;
     using AnimalMatcher.Web.Models.Owner;
@@ -13,13 +14,16 @@
         {
             this.PetRegistrations();
             this.OwnerRegistrations();
+            this.LocationRegistrations();
         }
 
         private void PetRegistrations()
         {
             this.CreateMap<PetRegisterServiceModel, Pet>();
 
-            this.CreateMap<PetInputModel, PetRegisterServiceModel>();
+            this.CreateMap<PetInputModel, PetRegisterServiceModel>()
+                .ForPath(petServiceModel => petServiceModel.Location.Latitude, cfg => cfg.MapFrom(petInputModel => petInputModel.Latitude))
+                .ForPath(petServiceModel => petServiceModel.Location.Longitude, cfg => cfg.MapFrom(petInputModel => petInputModel.Longitude));
 
             this.CreateMap<PetWithOwnerServiceModel, PetDetailedViewModel>();
 
@@ -36,6 +40,11 @@
             this.CreateMap<Owner, OwnerWithPetsServiceModel>();
 
             this.CreateMap<OwnerWithPetsServiceModel, OwnerViewModel>();
+        }
+
+        private void LocationRegistrations()
+        {
+            this.CreateMap<LocationDTO, Location>();
         }
     }
 }

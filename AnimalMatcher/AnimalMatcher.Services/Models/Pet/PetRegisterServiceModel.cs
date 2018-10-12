@@ -1,4 +1,6 @@
-﻿namespace AnimalMatcher.Services.Models.Pet
+﻿using AnimalMatcher.Services.Models.Location;
+
+namespace AnimalMatcher.Services.Models.Pet
 {
     public class PetRegisterServiceModel
     {
@@ -9,5 +11,7 @@
         public string Description { get; set; }
 
         public string OwnerId { get; set; }
+
+        public LocationDTO Location { get; set; }
     }
 }

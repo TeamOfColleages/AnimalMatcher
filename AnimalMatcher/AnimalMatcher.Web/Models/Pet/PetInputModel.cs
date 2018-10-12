@@ -15,5 +15,13 @@
 
         [MaxLength(PetConstants.DescriptionMaxLength)]
         public string Description { get; set; }
+
+        [Display(Name = "Pet location latitude")]
+        [Range(LocationConstants.DegreesMinValue, LocationConstants.DegreesMaxValue)]
+        public double Latitude { get; set; }
+
+        [Display(Name = "Pet location logitude")]
+        [Range(LocationConstants.DegreesMinValue, LocationConstants.DegreesMaxValue)]
+        public double Longitude { get; set; }
     }
 }
