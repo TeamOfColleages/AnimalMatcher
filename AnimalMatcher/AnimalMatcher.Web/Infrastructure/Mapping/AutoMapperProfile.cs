@@ -1,6 +1,7 @@
 ﻿namespace AnimalMatcher.Web.Infrastructure.Mapping
 {
     using AnimalMatcher.Data.Models;
+    using AnimalMatcher.Services.Location.Interfaces;
     using AnimalMatcher.Services.Models.Location;
     using AnimalMatcher.Services.Models.Owner;
     using AnimalMatcher.Services.Models.Pet;
@@ -30,6 +31,8 @@
             this.CreateMap<Pet, PetWithOwnerServiceModel>();
 
             this.CreateMap<Pet, PetServiceModel>();
+
+            this.CreateMap<Pet, PetWithDistanceServiceModel>();
         }
 
         private void OwnerRegistrations()

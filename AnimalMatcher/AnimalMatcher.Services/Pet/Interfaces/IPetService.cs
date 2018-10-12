@@ -1,6 +1,7 @@
 ﻿namespace AnimalMatcher.Services.Pet.Interfaces
 {
     using System.Collections.Generic;
+    using AnimalMatcher.Services.Models.Location;
     using AnimalMatcher.Services.Models.Pet;
 
     public interface IPetService
@@ -10,5 +11,7 @@
         PetWithOwnerServiceModel GetById(int petId);
 
         IEnumerable<PetWithOwnerServiceModel> GetOwnersPets(string ownerId);
+
+        IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string ownerId, LocationDTO location, double radius);
     }
 }

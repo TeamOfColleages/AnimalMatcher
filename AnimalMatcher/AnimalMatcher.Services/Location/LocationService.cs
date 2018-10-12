@@ -1,47 +1,35 @@
 ﻿namespace AnimalMatcher.Services.Location
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using AnimalMatcher.Data.Models;
-    using AnimalMatcher.Data.Repository.Interfaces;
     using AnimalMatcher.Services.Location.Interfaces;
     using AnimalMatcher.Services.Models.Location;
-    using AnimalMatcher.Services.Models.Pet;
-    using AnimalMatcher.Specifications;
-    using AutoMapper;
 
     public class LocationService : ILocationService
     {
-        private const int EarthRadiusInKm = 6371;
-        private const double RadiansPerDegree = 0.0174532925;
-
-        private readonly IGenericRepository<Pet> petRepository;
-        private readonly IMapper mapper;
-
-        public LocationService(IGenericRepository<Pet> petRepository, IMapper mapper)
+        public double Distance(LocationDTO locationFrom, LocationDTO locationTo, DistanceUnit unit = DistanceUnit.Kilometers)
         {
-            this.petRepository = petRepository;
-            this.mapper = mapper;
-        }
+            double rlat1 = Math.PI * locationFrom.Latitude / 180;
+            double rlat2 = Math.PI * locationTo.Latitude / 180;
+            double theta = locationFrom.Longitude - locationTo.Longitude;
+            double rtheta = Math.PI * theta / 180;
 
-        public IEnumerable<PetServiceModel> GetPetsInRadius(LocationDTO location, double radius)
-        {
-            double latitudeInRadians = location.Latitude * RadiansPerDegree;
-            double longitudeInRadians = location.Longitude * RadiansPerDegree;
+            double distance =
+                (Math.Sin(rlat1) * Math.Sin(rlat2)) + (Math.Cos(rlat1) *
+                Math.Cos(rlat2) * Math.Cos(rtheta));
 
-            var petsInRadiusSpecification = new Specification<Pet>(pet => Math.Acos(Math.Sin(latitudeInRadians) * Math.Sin(pet.Location.Latitude * RadiansPerDegree)
-            + Math.Cos(latitudeInRadians) * Math.Cos(pet.Location.Latitude * RadiansPerDegree) * Math.Cos(pet.Location.Longitude * RadiansPerDegree - longitudeInRadians))
-            * EarthRadiusInKm <= radius);
-            petsInRadiusSpecification.AddInclude(pet => pet.Location);
+            distance = Math.Acos(distance);
+            distance = distance * 180 / Math.PI;
+            double distanceInMiles = distance * 60 * 1.1515;
 
-            var petsInRadius = this.petRepository
-                .List(petsInRadiusSpecification)
-                .Select(petDataModel => this.mapper.Map<PetServiceModel>(petDataModel))
-                .ToList();
+            switch (unit)
+            {
+                case DistanceUnit.Kilometers:
+                    return distanceInMiles * 1.609344;
+                case DistanceUnit.Miles:
+                    return distanceInMiles;
+            }
 
-            return petsInRadius;
+            return distanceInMiles;
         }
     }
 }

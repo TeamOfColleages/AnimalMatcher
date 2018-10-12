@@ -5,6 +5,9 @@
 
     using AnimalMatcher.Data.Models;
     using AnimalMatcher.Data.Repository.Interfaces;
+    using AnimalMatcher.Data.Specifications.Pet;
+    using AnimalMatcher.Services.Location.Interfaces;
+    using AnimalMatcher.Services.Models.Location;
     using AnimalMatcher.Services.Models.Pet;
     using AnimalMatcher.Services.Pet.Interfaces;
     using AnimalMatcher.Specifications;
@@ -14,11 +17,13 @@
     public class PetService : IPetService
     {
         private readonly IGenericRepository<Pet> petRepository;
+        private readonly ILocationService locationService;
         private readonly IMapper mapper;
 
-        public PetService(IGenericRepository<Pet> petRepository, IMapper mapper)
+        public PetService(IGenericRepository<Pet> petRepository, ILocationService locationService, IMapper mapper)
         {
             this.petRepository = petRepository;
+            this.locationService = locationService;
             this.mapper = mapper;
         }
 
@@ -54,6 +59,24 @@
                 .ToList();
 
             return petsForOwner;
+        }
+
+        public IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string ownerId, LocationDTO location, double radius)
+        {
+            var findPetsInRadiusSpecification = new FindPetsInRadiusSpecification(ownerId, location.Latitude, location.Longitude, radius);
+
+            var petsInRadius = this.petRepository
+                .List(findPetsInRadiusSpecification)
+                .Select(petDataModel => 
+                {
+                    var currentPetLocation = new LocationDTO { Latitude = petDataModel.Location.Latitude, Longitude = petDataModel.Location.Longitude };
+                    var petServiceModel = this.mapper.Map<PetWithDistanceServiceModel>(petDataModel);
+                    petServiceModel.Distance = this.locationService.Distance(location, currentPetLocation);
+                    return petServiceModel;
+                })
+                .ToList();
+
+            return petsInRadius;
         }
     }
 }
