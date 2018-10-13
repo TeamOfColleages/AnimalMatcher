@@ -1,6 +1,7 @@
 ﻿namespace AnimalMatcher.Services.Location
 {
     using System;
+    using AnimalMatcher.Common.Enums.Location;
     using AnimalMatcher.Services.Location.Interfaces;
     using AnimalMatcher.Services.Models.Location;
 

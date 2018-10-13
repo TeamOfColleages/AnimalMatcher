@@ -1,4 +1,4 @@
-﻿namespace AnimalMatcher.Services.Models.Location
+﻿namespace AnimalMatcher.Common.Enums.Location
 {
     public enum DistanceUnit
     {
