@@ -1,6 +1,6 @@
 ﻿namespace AnimalMatcher.Common.Constants
 {
-    public class PetConstants
+    public static class PetConstants
     {
         public const int MinAge = 0;
         public const int MaxAge = 100;

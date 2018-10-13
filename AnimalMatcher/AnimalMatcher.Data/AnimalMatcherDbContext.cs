@@ -17,6 +17,8 @@
 
         public DbSet<Message> Messages { get; set; }
 
+        public DbSet<Location> Locations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -52,6 +54,12 @@
                 .WithOne(message => message.Recipient)
                 .HasForeignKey(message => message.RecipientId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Pet>()
+                .HasOne(pet => pet.Location)
+                .WithOne(location => location.Pet)
+                .HasForeignKey<Location>(location => location.PetId);
 
             base.OnModelCreating(builder);
         }
