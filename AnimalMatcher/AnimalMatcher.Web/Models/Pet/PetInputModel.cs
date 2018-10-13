@@ -17,11 +17,11 @@
         public string Description { get; set; }
 
         [Display(Name = "Pet location latitude")]
-        [Range(LocationConstants.DegreesMinValue, LocationConstants.DegreesMaxValue)]
+        [Range(LocationConstants.LatitudeMinValue, LocationConstants.LatitudeMaxValue)]
         public double Latitude { get; set; }
 
         [Display(Name = "Pet location logitude")]
-        [Range(LocationConstants.DegreesMinValue, LocationConstants.DegreesMaxValue)]
+        [Range(LocationConstants.LongitudeMinValue, LocationConstants.LongitudeMaxValue)]
         public double Longitude { get; set; }
     }
 }

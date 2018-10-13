@@ -8,11 +8,11 @@
         public int Id { get; set; }
 
         [Required]
-        [Range(LocationConstants.DegreesMinValue, LocationConstants.DegreesMaxValue)]
+        [Range(LocationConstants.LatitudeMinValue, LocationConstants.LatitudeMaxValue)]
         public double Latitude { get; set; }
 
         [Required]
-        [Range(LocationConstants.DegreesMinValue, LocationConstants.DegreesMaxValue)]
+        [Range(LocationConstants.LongitudeMinValue, LocationConstants.LongitudeMaxValue)]
         public double Longitude { get; set; }
 
         [Required]
