@@ -35,5 +35,7 @@
         public ICollection<Message> SentMessages { get; set; } = new List<Message>();
 
         public ICollection<Message> ReceivedMessages { get; set; } = new List<Message>();
+
+        public ICollection<Image> Images { get; set; } = new List<Image>();
     }
 }

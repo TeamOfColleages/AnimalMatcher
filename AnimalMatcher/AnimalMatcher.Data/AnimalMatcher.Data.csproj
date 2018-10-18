@@ -13,6 +13,7 @@
     <Compile Remove="Migrations\20181010170913_PetLocationTable.cs" />
     <Compile Remove="Migrations\20181010172227_PetLocationTable.cs" />
     <Compile Remove="Migrations\20181010184750_PetLocation.cs" />
+    <Compile Remove="Migrations\20181018185252_PetImageTable.cs" />
   </ItemGroup>
 
   <ItemGroup>
