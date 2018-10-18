@@ -19,6 +19,8 @@
 
         public DbSet<Location> Locations { get; set; }
 
+        public DbSet<Image> Images { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -60,6 +62,13 @@
                 .HasOne(pet => pet.Location)
                 .WithOne(location => location.Pet)
                 .HasForeignKey<Location>(location => location.PetId);
+
+            builder
+                .Entity<Pet>()
+                .HasMany(pet => pet.Images)
+                .WithOne(image => image.Pet)
+                .HasForeignKey(image => image.PetId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(builder);
         }
