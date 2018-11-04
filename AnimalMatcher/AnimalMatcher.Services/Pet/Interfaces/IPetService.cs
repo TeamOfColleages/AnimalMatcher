@@ -12,6 +12,6 @@
 
         IEnumerable<PetWithOwnerServiceModel> GetOwnersPets(string ownerId);
 
-        IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string callerId, LocationDTO location, double radius);
+        IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string searcherId, LocationDTO location, double radius);
     }
 }

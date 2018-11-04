@@ -61,9 +61,9 @@
             return petsForOwner;
         }
 
-        public IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string ownerId, LocationDTO location, double radius)
+        public IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string searcherId, LocationDTO location, double radius)
         {
-            var findPetsInRadiusSpecification = new FindPetsInRadiusSpecification(ownerId, location.Latitude, location.Longitude, radius);
+            var findPetsInRadiusSpecification = new FindPetsInRadiusSpecification(searcherId, location.Latitude, location.Longitude, radius);
 
             var petsInRadius = this.petRepository
                 .List(findPetsInRadiusSpecification)
