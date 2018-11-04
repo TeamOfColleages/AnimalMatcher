@@ -20,6 +20,7 @@
                 * EarthRadiusInKm <= radius)
         {
             this.AddInclude(pet => pet.Location);
+            this.AddInclude(pet => pet.Owner);
         }
     }
 }

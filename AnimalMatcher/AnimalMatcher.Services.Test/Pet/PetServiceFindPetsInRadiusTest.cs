@@ -19,9 +19,12 @@
 
     public class PetServiceFindPetsInRadiusTest
     {
-        private const int PetId = 1;
-        private const int PetLocationId = 1;
-        private const string PetOwnerId = "PetOwnerId";
+        private const int FirstPetId = 1;
+        private const int SecondPetId = 2;
+        private const int FirstPetLocationId = 1;
+        private const int SecondPetLocationId = 2;
+        private const string FirstPetOwnerId = "FirstPetOwnerId";
+        private const string SecondPetOwnerId = "SecondPetOwnerId";
 
         private readonly AnimalMatcherDbContext animalMatcherDbContext;
         private readonly IMapper mapper;
@@ -33,7 +36,6 @@
         public PetServiceFindPetsInRadiusTest()
         {
             this.animalMatcherDbContext = this.PrepareInMemoryDbContext();
-            this.PopulateDatabase();
 
             var configuration = new MapperConfiguration(config => config.AddProfile<AutoMapperServicesProfile>());
             this.mapper = new Mapper(configuration);
@@ -52,18 +54,20 @@
             const double SearchRadiusInKm = 1;
             const double DistanceToPetInKm = 0.8;
 
-            var testLocationInRadius = new LocationDTO
+            this.PopulateDatabase();
+
+            var testLocation = new LocationDTO
             {
                 Latitude = 42.683074,
                 Longitude = 23.293244
             };
 
-            this.locationServiceMock.Setup(locationService => locationService.Distance(testLocationInRadius, It.IsAny<LocationDTO>(), It.IsAny<DistanceUnit>())).Returns(DistanceToPetInKm);
+            this.locationServiceMock.Setup(locationService => locationService.Distance(testLocation, It.IsAny<LocationDTO>(), It.IsAny<DistanceUnit>())).Returns(DistanceToPetInKm);
 
-            string searcherId = "seacherId";
+            string searcherId = SecondPetOwnerId;
 
             // Act
-            var petCollection = this.petService.FindPetsInRadius(searcherId, testLocationInRadius, SearchRadiusInKm);
+            var petCollection = this.petService.FindPetsInRadius(searcherId, testLocation, SearchRadiusInKm);
 
             // Assert 
             petCollection
@@ -71,8 +75,143 @@
                 .HaveCount(1);
 
             var pet = petCollection.FirstOrDefault();
-            pet.Id.Should().Be(PetId);
+            pet.Id.Should().Be(FirstPetId);
             pet.Distance.Should().Be(DistanceToPetInKm);
+            pet.Owner.Id.Should().Be(FirstPetOwnerId);
+        }
+
+        [Fact]
+        public void FindMultiplePetsInRadiusFromLocation()
+        {
+            const double SearchRadiusInKm = 2.91;
+
+            this.PopulateDatabase();
+
+            var testLocation = new LocationDTO
+            {
+                Latitude = 42.683074,
+                Longitude = 23.293244
+            };
+
+            string searcherId = "searcherId";
+
+            // Act
+            var petCollection = this.petService.FindPetsInRadius(searcherId, testLocation, SearchRadiusInKm);
+
+            // Assert 
+            petCollection
+                .Should()
+                .HaveCount(2);
+
+            var firstPet = petCollection.FirstOrDefault();
+            firstPet.Id.Should().Be(FirstPetId);
+            firstPet.Owner.Id.Should().Be(FirstPetOwnerId);
+
+            var secondPet = petCollection.ElementAt(1);
+            secondPet.Id.Should().Be(SecondPetId);
+            secondPet.Owner.Id.Should().Be(SecondPetOwnerId);
+        }
+
+        [Fact]
+        public void SearchersPetsDoNotShowUpInSearch()
+        {
+            // Arrange
+            const double SearchRadiusInKm = 3;
+
+            this.PopulateDatabase();
+
+            var testLocation = new LocationDTO
+            {
+                Latitude = 42.683074,
+                Longitude = 23.293244
+            };
+
+            string searcherId = FirstPetOwnerId;
+
+            // Act
+            var petCollection = this.petService.FindPetsInRadius(searcherId, testLocation, SearchRadiusInKm);
+
+            // Assert
+            petCollection
+                .Should()
+                .HaveCount(1);
+
+            var pet = petCollection.FirstOrDefault();
+            pet.Id.Should().Be(SecondPetId);
+            pet.Owner.Id.Should().Be(SecondPetOwnerId);
+        }
+
+        [Fact]
+        public void CantFindPetsInEmptyDatabase()
+        {
+            // Arrange
+            const double SearchRadiusInKm = 1;
+
+            var testLocation = new LocationDTO
+            {
+                Latitude = 42.683074,
+                Longitude = 23.293244
+            };
+
+            string searcherId = SecondPetOwnerId;
+
+            // Act
+            var petCollection = this.petService.FindPetsInRadius(searcherId, testLocation, SearchRadiusInKm);
+
+            // Assert
+            petCollection
+                .Should()
+                .BeNullOrEmpty();
+        }
+
+        [Fact]
+        public void NoPetsInRadius()
+        {
+            // Arrange
+            const double SearchRadiusInKm = 3;
+
+            this.PopulateDatabase();
+
+            var testLocation = new LocationDTO
+            {
+                Latitude = 42.693420,
+                Longitude = 23.425223
+            };
+
+            string searcherId = SecondPetOwnerId;
+
+            // Act
+            var petCollection = this.petService.FindPetsInRadius(searcherId, testLocation, SearchRadiusInKm);
+
+            // Assert
+            petCollection
+                .Should()
+                .BeNullOrEmpty();
+        }
+
+        [Fact]
+        public void InvalidRadius()
+        {
+            // Arrange
+            const double InvalidSearchRadiusInKm = -2;
+
+            this.PopulateDatabase();
+
+            var testLocation = new LocationDTO
+            {
+                Latitude = 42.683074,
+                Longitude = 23.293244
+            };
+
+            string searcherId = SecondPetOwnerId;
+
+            // Act & Assert
+            var exception = Record.Exception(() => this.petService.FindPetsInRadius(searcherId, testLocation, InvalidSearchRadiusInKm));
+
+            // Assert
+            exception.Should().NotBeNull();
+            exception.Should().BeOfType(typeof(ArgumentException));
+            exception.Message.Should().Be("Radius should be a positive value");
         }
 
         private AnimalMatcherDbContext PrepareInMemoryDbContext()
@@ -86,28 +225,60 @@
 
         private void PopulateDatabase()
         {
-            const int PetLocationId = 1;
-            const int PetId = 1;
-
-            var petLocation = new Location
+            var firstPetOwner = new Owner
             {
-                Id = PetLocationId,
+                Id = FirstPetOwnerId,
+                Name = "First Test Owner",
+                UserName = "firstTestOwner"
+            };
+
+            var secondPetOwner = new Owner
+            {
+                Id = SecondPetOwnerId,
+                Name = "Second Test Owner",
+                UserName = "secondTestOwner"
+            };
+
+            var firstPetLocation = new Location
+            {
+                Id = FirstPetLocationId,
                 Latitude = 42.681976,
                 Longitude = 23.294524,
-                PetId = PetId
+                PetId = FirstPetId
             };
 
-            var petInRadius = new Pet
+            var secondPetLocation = new Location
             {
-                Id = PetId,
-                Age = 2,
-                Name = "Test pet in radius",
-                OwnerId = PetOwnerId,
-                LocationId = PetLocationId
+                Id = SecondPetLocationId,
+                Latitude = 42.660607,
+                Longitude = 23.311436,
+                PetId = SecondPetId
             };
 
-            this.animalMatcherDbContext.Add(petLocation);
-            this.animalMatcherDbContext.Add(petInRadius);
+            var firstPet = new Pet
+            {
+                Id = FirstPetId,
+                Age = 2,
+                Name = "First Test pet",
+                OwnerId = FirstPetOwnerId,
+                LocationId = FirstPetLocationId
+            };
+
+            var secondPet = new Pet
+            {
+                Id = SecondPetId,
+                Age = 12,
+                Name = "Second Test pet",
+                OwnerId = SecondPetOwnerId,
+                LocationId = SecondPetLocationId
+            };
+
+            this.animalMatcherDbContext.Add(firstPetOwner);
+            this.animalMatcherDbContext.Add(secondPetOwner);
+            this.animalMatcherDbContext.Add(firstPetLocation);
+            this.animalMatcherDbContext.Add(secondPetLocation);
+            this.animalMatcherDbContext.Add(firstPet);
+            this.animalMatcherDbContext.Add(secondPet);
             this.animalMatcherDbContext.SaveChanges();
         }
     }
