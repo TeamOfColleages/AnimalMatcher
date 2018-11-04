@@ -38,11 +38,11 @@
             var configuration = new MapperConfiguration(config => config.AddProfile<AutoMapperServicesProfile>());
             this.mapper = new Mapper(configuration);
 
-            this.petRepository = new GenericRepository<Pet>(animalMatcherDbContext);
+            this.petRepository = new GenericRepository<Pet>(this.animalMatcherDbContext);
 
             this.locationServiceMock = new Mock<ILocationService>();
 
-            this.petService = new PetService(petRepository, locationServiceMock.Object, mapper);
+            this.petService = new PetService(this.petRepository, this.locationServiceMock.Object, this.mapper);
         }
 
         [Fact]
@@ -58,12 +58,12 @@
                 Longitude = 23.293244
             };
 
-            locationServiceMock.Setup(locationService => locationService.Distance(testLocationInRadius, It.IsAny<LocationDTO>(), It.IsAny<DistanceUnit>())).Returns(DistanceToPetInKm);
+            this.locationServiceMock.Setup(locationService => locationService.Distance(testLocationInRadius, It.IsAny<LocationDTO>(), It.IsAny<DistanceUnit>())).Returns(DistanceToPetInKm);
 
             string searcherId = "seacherId";
 
             // Act
-            var petCollection = petService.FindPetsInRadius(searcherId, testLocationInRadius, SearchRadiusInKm);
+            var petCollection = this.petService.FindPetsInRadius(searcherId, testLocationInRadius, SearchRadiusInKm);
 
             // Assert 
             petCollection
