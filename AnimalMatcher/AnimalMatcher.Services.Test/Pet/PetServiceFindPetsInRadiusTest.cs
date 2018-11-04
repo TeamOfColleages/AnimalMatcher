@@ -205,7 +205,7 @@
 
             string searcherId = SecondPetOwnerId;
 
-            // Act & Assert
+            // Act
             var exception = Record.Exception(() => this.petService.FindPetsInRadius(searcherId, testLocation, InvalidSearchRadiusInKm));
 
             // Assert

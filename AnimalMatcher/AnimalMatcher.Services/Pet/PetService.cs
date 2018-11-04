@@ -64,7 +64,7 @@
 
         public IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string searcherId, LocationDTO location, double radius)
         {
-            if(radius <= 0)
+            if (radius <= 0)
             {
                 throw new ArgumentException("Radius should be a positive value");
             }
@@ -73,7 +73,7 @@
 
             var petsInRadius = this.petRepository
                 .List(findPetsInRadiusSpecification)
-                .Select(petDataModel => 
+                .Select(petDataModel =>
                 {
                     var currentPetLocation = new LocationDTO { Latitude = petDataModel.Location.Latitude, Longitude = petDataModel.Location.Longitude };
                     var petServiceModel = this.mapper.Map<PetWithDistanceServiceModel>(petDataModel);
