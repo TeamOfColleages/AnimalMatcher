@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalMatcher.Data", "Anima
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalMatcher.Services", "AnimalMatcher.Services\AnimalMatcher.Services.csproj", "{DDE71F6B-C1B5-4664-B4C8-BEB0BB694808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalMatcher.Common", "AnimalMatcher.Common\AnimalMatcher.Common.csproj", "{90B81A3C-8197-43EA-AECC-8DBD79C817BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalMatcher.Common", "AnimalMatcher.Common\AnimalMatcher.Common.csproj", "{90B81A3C-8197-43EA-AECC-8DBD79C817BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalMatcher.Services.Test", "AnimalMatcher.Services.Test\AnimalMatcher.Services.Test.csproj", "{42B27DAF-2EA5-4F6F-A663-3DDC926DF129}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{90B81A3C-8197-43EA-AECC-8DBD79C817BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90B81A3C-8197-43EA-AECC-8DBD79C817BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90B81A3C-8197-43EA-AECC-8DBD79C817BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B27DAF-2EA5-4F6F-A663-3DDC926DF129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B27DAF-2EA5-4F6F-A663-3DDC926DF129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B27DAF-2EA5-4F6F-A663-3DDC926DF129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B27DAF-2EA5-4F6F-A663-3DDC926DF129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

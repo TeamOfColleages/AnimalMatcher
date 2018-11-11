@@ -10,8 +10,8 @@
         private const int EarthRadiusInKm = 6371;
         private const double RadiansPerDegree = 0.0174532925;
 
-        public FindPetsInRadiusSpecification(string ownerId, double latitude, double longitude, double radius)
-            : base(pet => pet.OwnerId != ownerId && 
+        public FindPetsInRadiusSpecification(string searcherId, double latitude, double longitude, double radius)
+            : base(pet => pet.OwnerId != searcherId && 
                 Math.Acos(Math.Sin(latitude * RadiansPerDegree)
                 * Math.Sin(pet.Location.Latitude * RadiansPerDegree)
                 + Math.Cos(latitude * RadiansPerDegree)
@@ -20,6 +20,7 @@
                 * EarthRadiusInKm <= radius)
         {
             this.AddInclude(pet => pet.Location);
+            this.AddInclude(pet => pet.Owner);
         }
     }
 }

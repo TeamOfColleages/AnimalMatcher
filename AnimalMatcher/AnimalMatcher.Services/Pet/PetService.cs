@@ -1,5 +1,6 @@
 ﻿namespace AnimalMatcher.Services.Pet
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -61,13 +62,18 @@
             return petsForOwner;
         }
 
-        public IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string ownerId, LocationDTO location, double radius)
+        public IEnumerable<PetWithDistanceServiceModel> FindPetsInRadius(string searcherId, LocationDTO location, double radius)
         {
-            var findPetsInRadiusSpecification = new FindPetsInRadiusSpecification(ownerId, location.Latitude, location.Longitude, radius);
+            if (radius <= 0)
+            {
+                throw new ArgumentException("Radius should be a positive value");
+            }
+
+            var findPetsInRadiusSpecification = new FindPetsInRadiusSpecification(searcherId, location.Latitude, location.Longitude, radius);
 
             var petsInRadius = this.petRepository
                 .List(findPetsInRadiusSpecification)
-                .Select(petDataModel => 
+                .Select(petDataModel =>
                 {
                     var currentPetLocation = new LocationDTO { Latitude = petDataModel.Location.Latitude, Longitude = petDataModel.Location.Longitude };
                     var petServiceModel = this.mapper.Map<PetWithDistanceServiceModel>(petDataModel);
