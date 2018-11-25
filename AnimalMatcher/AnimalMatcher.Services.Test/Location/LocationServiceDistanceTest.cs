@@ -148,7 +148,7 @@
         [InlineData(42.671988, LongitudeMinValue - 1, 42.694507, 23.446103)]
         [InlineData(42.671988, LongitudeMaxValue + 1, 42.694507, 23.446103)]
         [InlineData(42.671988, 23.294731, LatitudeMinValue - 1, 23.446103)]
-        [InlineData(42.671988, 23.294731, LatitudeMaxValue, 23.446103)]
+        [InlineData(42.671988, 23.294731, LatitudeMaxValue + 1, 23.446103)]
         [InlineData(42.671988, 23.294731, 42.694507, LongitudeMinValue - 1)]
         [InlineData(42.671988, 23.294731, 42.694507, LongitudeMaxValue + 1)]
         public void InvalidLocations(double firstLocationLatitude, double firstLocationLongitude, double secondLocationLatitude, double secondLocationLongitude)
